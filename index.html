@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Legal — Japan Provenance Guild</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -19,8 +19,10 @@
     --rule: #ddd8d0;
     --accent: #8b3a1e;
     --accent-pale: #f5ece7;
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-sans: 'DM Sans', system-ui, sans-serif;
+    --font-serif-en: 'Cormorant Garamond', Georgia, serif;
+    --font-sans-en: 'DM Sans', system-ui, sans-serif;
+    --font-serif-jp: 'Noto Serif JP', 'Yu Mincho', serif;
+    --font-sans-jp: 'Noto Sans JP', 'Hiragino Kaku Gothic Pro', sans-serif;
   }
 
   html { font-size: 16px; }
@@ -28,11 +30,13 @@
   body {
     background: var(--paper);
     color: var(--ink);
-    font-family: var(--font-sans);
+    font-family: var(--font-sans-en);
     font-weight: 300;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
+
+  body.jp { font-family: var(--font-sans-jp); }
 
   /* ── HEADER ── */
   header {
@@ -55,7 +59,7 @@
   }
 
   .logo-jp {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-en);
     font-size: 1.75rem;
     font-weight: 300;
     letter-spacing: 0.08em;
@@ -65,19 +69,63 @@
 
   .logo-mark {
     font-size: 0.65rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     color: var(--ink-light);
     text-transform: uppercase;
     font-weight: 400;
     padding-bottom: 2px;
   }
 
+  body.jp .logo-mark {
+    letter-spacing: 0.08em;
+    font-family: var(--font-sans-jp);
+  }
+
   .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .header-label {
     font-size: 0.7rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-light);
     font-weight: 400;
+  }
+
+  /* ── LANGUAGE TOGGLE ── */
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .lang-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 0.75rem;
+    color: var(--ink-faint);
+    font-family: var(--font-sans-en);
+    transition: color 0.15s, background 0.15s;
+    line-height: 1;
+  }
+
+  .lang-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .lang-btn:not(.active):hover {
+    color: var(--ink-mid);
+    background: var(--paper-warm);
   }
 
   /* ── PAGE INTRO ── */
@@ -97,6 +145,12 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    font-family: var(--font-sans-en);
+  }
+
+  body.jp .eyebrow {
+    font-family: var(--font-sans-jp);
+    letter-spacing: 0.15em;
   }
 
   .eyebrow::after {
@@ -108,13 +162,19 @@
   }
 
   .page-title {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-en);
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 300;
     line-height: 1.1;
     letter-spacing: -0.01em;
     color: var(--ink);
     margin-bottom: 1.5rem;
+  }
+
+  body.jp .page-title {
+    font-family: var(--font-serif-jp);
+    letter-spacing: 0.05em;
+    line-height: 1.3;
   }
 
   .page-subtitle {
@@ -146,7 +206,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-family: var(--font-sans);
+    font-family: var(--font-sans-en);
     font-size: 0.72rem;
     font-weight: 400;
     letter-spacing: 0.15em;
@@ -157,13 +217,18 @@
     border-bottom: 2px solid transparent;
     margin-bottom: -1px;
     transition: color 0.2s, border-color 0.2s;
-    position: relative;
+  }
+
+  body.jp .tab-btn {
+    font-family: var(--font-sans-jp);
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
   }
 
   .tab-btn:hover { color: var(--ink-mid); }
   .tab-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
 
-  /* ── CONTENT PANELS ── */
+  /* ── CONTENT ── */
   .content-area {
     max-width: 880px;
     margin: 0 auto;
@@ -173,10 +238,7 @@
   .panel { display: none; }
   .panel.active { display: block; }
 
-  /* ── LEGAL ARTICLE ── */
-  .legal-article {
-    padding-top: 3.5rem;
-  }
+  .legal-article { padding-top: 3.5rem; }
 
   .legal-meta {
     display: flex;
@@ -187,11 +249,7 @@
     flex-wrap: wrap;
   }
 
-  .meta-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
+  .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
 
   .meta-label {
     font-size: 0.6rem;
@@ -199,23 +257,30 @@
     text-transform: uppercase;
     color: var(--ink-faint);
     font-weight: 400;
+    font-family: var(--font-sans-en);
   }
 
-  .meta-value {
-    font-size: 0.8rem;
-    color: var(--ink-mid);
-    font-weight: 300;
+  body.jp .meta-label {
+    font-family: var(--font-sans-jp);
+    letter-spacing: 0.08em;
   }
+
+  .meta-value { font-size: 0.8rem; color: var(--ink-mid); font-weight: 300; }
 
   /* ── PROSE ── */
   .prose h2 {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-en);
     font-size: 1.55rem;
     font-weight: 300;
     letter-spacing: 0.01em;
     color: var(--ink);
     margin: 2.75rem 0 0.85rem;
-    padding-top: 0.25rem;
+  }
+
+  body.jp .prose h2 {
+    font-family: var(--font-serif-jp);
+    letter-spacing: 0.05em;
+    font-size: 1.3rem;
   }
 
   .prose h2:first-child { margin-top: 0; }
@@ -227,6 +292,13 @@
     text-transform: uppercase;
     color: var(--ink-mid);
     margin: 2rem 0 0.6rem;
+    font-family: var(--font-sans-en);
+  }
+
+  body.jp .prose h3 {
+    font-family: var(--font-sans-jp);
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
   }
 
   .prose p {
@@ -237,9 +309,9 @@
     font-weight: 300;
   }
 
-  .prose ul, .prose ol {
-    margin: 0.75rem 0 1.1rem 1.5rem;
-  }
+  body.jp .prose p { line-height: 2; font-size: 0.9rem; }
+
+  .prose ul, .prose ol { margin: 0.75rem 0 1.1rem 1.5rem; }
 
   .prose li {
     font-size: 0.93rem;
@@ -249,13 +321,9 @@
     font-weight: 300;
   }
 
-  .prose a {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1px;
-  }
+  body.jp .prose li { line-height: 2; font-size: 0.9rem; }
 
+  .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
   .prose a:hover { text-decoration: none; }
 
   .prose .notice-box {
@@ -263,20 +331,11 @@
     border-left: 2px solid var(--accent);
     padding: 1.1rem 1.4rem;
     margin: 1.5rem 0;
-    border-radius: 0 2px 2px 0;
   }
 
-  .prose .notice-box p {
-    margin: 0;
-    font-size: 0.88rem;
-    color: var(--ink);
-  }
+  .prose .notice-box p { margin: 0; font-size: 0.88rem; color: var(--ink); }
 
-  .prose .divider {
-    border: none;
-    border-top: 1px solid var(--rule);
-    margin: 2.5rem 0;
-  }
+  .prose .divider { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
 
   .prose .contact-block {
     background: var(--paper-warm);
@@ -287,20 +346,17 @@
 
   .prose .contact-block p { margin: 0.2rem 0; font-size: 0.88rem; }
   .prose .contact-block .contact-head {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-en);
     font-size: 1.1rem;
     color: var(--ink);
     margin-bottom: 0.75rem;
     font-weight: 300;
+    display: block;
   }
 
-  /* ── TABLE ── */
-  .prose table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.25rem 0 1.75rem;
-    font-size: 0.85rem;
-  }
+  body.jp .prose .contact-block .contact-head { font-family: var(--font-serif-jp); }
+
+  .prose table { width: 100%; border-collapse: collapse; margin: 1.25rem 0 1.75rem; font-size: 0.85rem; }
   .prose th {
     text-align: left;
     font-size: 0.62rem;
@@ -310,15 +366,19 @@
     color: var(--ink-light);
     padding: 0.6rem 0.9rem;
     border-bottom: 1px solid var(--rule);
+    font-family: var(--font-sans-en);
   }
-  .prose td {
-    padding: 0.75rem 0.9rem;
-    border-bottom: 1px solid var(--rule);
-    color: var(--ink-mid);
-    line-height: 1.6;
-    vertical-align: top;
-  }
+  body.jp .prose th { font-family: var(--font-sans-jp); letter-spacing: 0.05em; }
+  .prose td { padding: 0.75rem 0.9rem; border-bottom: 1px solid var(--rule); color: var(--ink-mid); line-height: 1.7; vertical-align: top; }
   .prose tr:last-child td { border-bottom: none; }
+
+  /* ── LANGUAGE CONTENT ── */
+  [data-lang] { display: none; }
+  body.en [data-lang="en"] { display: block; }
+  body.jp [data-lang="jp"] { display: block; }
+  body.en [data-lang-inline="en"] { display: inline; }
+  body.jp [data-lang-inline="jp"] { display: inline; }
+  [data-lang-inline] { display: none; }
 
   /* ── FOOTER ── */
   footer {
@@ -327,88 +387,124 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: gap;
     gap: 1rem;
+    flex-wrap: wrap;
   }
 
   .footer-brand {
-    font-family: var(--font-serif);
+    font-family: var(--font-serif-en);
     font-size: 1.1rem;
     font-weight: 300;
     letter-spacing: 0.05em;
     color: var(--ink);
   }
 
-  .footer-note {
-    font-size: 0.7rem;
-    color: var(--ink-faint);
-    letter-spacing: 0.05em;
-    text-align: right;
-  }
+  .footer-note { font-size: 0.7rem; color: var(--ink-faint); letter-spacing: 0.05em; text-align: right; }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 680px) {
     header, .page-intro, .tab-nav, .content-area, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
     .page-intro { padding-top: 3rem; }
     .legal-meta { gap: 1.5rem; }
+    .header-label { display: none; }
   }
 </style>
 </head>
-<body>
+<body class="en">
 
 <header>
   <div class="logo-block">
     <span class="logo-jp">JPG</span>
-    <span class="logo-mark">Japan Provenance Guild</span>
+    <span class="logo-mark">
+      <span data-lang-inline="en">Japan Provenance Guild</span>
+      <span data-lang-inline="jp">ジャパン・プロヴェナンス・ギルド</span>
+    </span>
   </div>
-  <div class="header-right">Legal &amp; Policies</div>
+  <div class="header-right">
+    <span class="header-label">
+      <span data-lang-inline="en">Legal &amp; Policies</span>
+      <span data-lang-inline="jp">法的情報・ポリシー</span>
+    </span>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('jp')">日本語</button>
+    </div>
+  </div>
 </header>
 
 <div class="page-intro">
-  <p class="eyebrow">Transparency</p>
-  <h1 class="page-title">Our Commitments<br><em>to You</em></h1>
-  <p class="page-subtitle">JPG operates across Japan and international markets. These documents govern how we serve you — plainly stated, rigorously maintained.</p>
+  <p class="eyebrow">
+    <span data-lang-inline="en">Transparency</span>
+    <span data-lang-inline="jp">透明性</span>
+  </p>
+  <h1 class="page-title">
+    <span data-lang-inline="en">Our Commitments<br><em>to You</em></span>
+    <span data-lang-inline="jp">お客様への<br><em>お約束</em></span>
+  </h1>
+  <p class="page-subtitle">
+    <span data-lang-inline="en">JPG operates across Japan and international markets. These documents govern how we serve you — plainly stated, rigorously maintained.</span>
+    <span data-lang-inline="jp">JPGは日本国内および海外市場において事業を展開しています。以下の文書は、私たちがお客様にサービスを提供するにあたっての規定を、明確かつ厳格に定めたものです。</span>
+  </p>
 </div>
 
 <div class="tab-nav">
   <ul class="tab-list" role="tablist">
-    <li><button class="tab-btn active" onclick="switchTab(this,'terms')" role="tab">Terms of Service</button></li>
-    <li><button class="tab-btn" onclick="switchTab(this,'legal')" role="tab">Legal Notice</button></li>
-    <li><button class="tab-btn" onclick="switchTab(this,'privacy')" role="tab">Privacy Policy</button></li>
-    <li><button class="tab-btn" onclick="switchTab(this,'refund')" role="tab">Refund Policy</button></li>
+    <li><button class="tab-btn active" onclick="switchTab(this,'terms')" role="tab">
+      <span data-lang-inline="en">Terms of Service</span>
+      <span data-lang-inline="jp">利用規約</span>
+    </button></li>
+    <li><button class="tab-btn" onclick="switchTab(this,'legal')" role="tab">
+      <span data-lang-inline="en">Legal Notice</span>
+      <span data-lang-inline="jp">特定商取引法に基づく表記</span>
+    </button></li>
+    <li><button class="tab-btn" onclick="switchTab(this,'privacy')" role="tab">
+      <span data-lang-inline="en">Privacy Policy</span>
+      <span data-lang-inline="jp">プライバシーポリシー</span>
+    </button></li>
+    <li><button class="tab-btn" onclick="switchTab(this,'refund')" role="tab">
+      <span data-lang-inline="en">Refund Policy</span>
+      <span data-lang-inline="jp">返品・返金ポリシー</span>
+    </button></li>
   </ul>
 </div>
 
 <div class="content-area">
 
-  <!-- ════════════════════════════════════════
+  <!-- ══════════════════════════════════════
        TERMS OF SERVICE
-  ════════════════════════════════════════ -->
+  ══════════════════════════════════════ -->
   <div class="panel active" id="terms">
     <article class="legal-article">
       <div class="legal-meta">
-        <div class="meta-item"><span class="meta-label">Document</span><span class="meta-value">Terms of Service</span></div>
-        <div class="meta-item"><span class="meta-label">Effective</span><span class="meta-value">May 1, 2025</span></div>
-        <div class="meta-item"><span class="meta-label">Last Revised</span><span class="meta-value">May 18, 2026</span></div>
-        <div class="meta-item"><span class="meta-label">Jurisdiction</span><span class="meta-value">Japan / International</span></div>
-      </div>
-      <div class="prose">
-        <div class="notice-box">
-          <p>By accessing or purchasing from Japan Provenance Guild, you agree to these Terms in full. Please read carefully before proceeding.</p>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Document</span><span data-lang-inline="jp">文書</span></span>
+          <span class="meta-value"><span data-lang-inline="en">Terms of Service</span><span data-lang-inline="jp">利用規約</span></span>
         </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Effective</span><span data-lang-inline="jp">施行日</span></span>
+          <span class="meta-value">2025年5月1日</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Last Revised</span><span data-lang-inline="jp">最終改訂</span></span>
+          <span class="meta-value">2026年5月18日</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Jurisdiction</span><span data-lang-inline="jp">準拠法</span></span>
+          <span class="meta-value"><span data-lang-inline="en">Japan / International</span><span data-lang-inline="jp">日本法・国際</span></span>
+        </div>
+      </div>
 
+      <!-- ENGLISH -->
+      <div class="prose" data-lang="en">
+        <div class="notice-box"><p>By accessing or purchasing from Japan Provenance Guild, you agree to these Terms in full. Please read carefully before proceeding.</p></div>
         <h2>1. About Japan Provenance Guild</h2>
         <p>Japan Provenance Guild (<strong>JPG</strong>, "we", "us", "our") is a curated commerce and membership platform dedicated to products of verified Japanese origin. We connect international customers with authenticated Japanese goods, craftspeople, and producers. Our registered office is in Tokyo, Japan.</p>
         <p>These Terms of Service ("Terms") apply to all visitors, members, and purchasers who access our website, mobile applications, subscription programs, or any other services we operate (collectively, the "Services").</p>
-
         <h2>2. Acceptance of Terms</h2>
         <p>By using our Services, you represent that (a) you are at least 18 years of age, (b) you have the legal capacity to enter into a binding agreement, and (c) you accept these Terms without modification. If you are using our Services on behalf of a business entity, you warrant that you are authorised to bind that entity.</p>
         <p>We may update these Terms at any time. Continued use of the Services after notice of changes constitutes acceptance of the revised Terms.</p>
-
         <h2>3. Account Registration</h2>
         <p>Certain features require account registration. You agree to provide accurate, current, and complete information and to keep your credentials confidential. You are responsible for all activity that occurs under your account. Notify us immediately at <a href="mailto:legal@japanprovenance.guild">legal@japanprovenance.guild</a> if you suspect unauthorised access.</p>
         <p>We reserve the right to suspend or terminate accounts that violate these Terms, provide false information, or engage in conduct harmful to JPG, our partners, or other users.</p>
-
         <h2>4. Products &amp; Provenance Standards</h2>
         <p>JPG applies a multi-stage provenance verification process to all listed goods. Our standards require:</p>
         <ul>
@@ -417,11 +513,9 @@
           <li>Ongoing supplier audit rights exercised at our discretion</li>
         </ul>
         <p>While we take every reasonable measure to verify provenance claims, JPG does not warrant that products are free of defects unrelated to authenticity. Product descriptions, images, and certifications are provided in good faith based on information from verified suppliers.</p>
-
         <h2>5. Orders &amp; Pricing</h2>
         <p>All prices are displayed in JPY (Japanese Yen) by default, with conversion shown in your selected currency where available. Prices are subject to change without prior notice. An order is not confirmed until you receive a written Order Confirmation from us.</p>
         <p>We reserve the right to refuse or cancel any order at our discretion, including in cases of pricing errors, stock limitations, or suspected fraudulent activity. If a payment has already been processed, a full refund will be issued promptly.</p>
-
         <h2>6. International Shipping &amp; Customs</h2>
         <p>JPG ships worldwide from Japan. Delivery timelines are estimates and may vary due to customs clearance, carrier delays, or other factors beyond our control. The customer is responsible for:</p>
         <ul>
@@ -430,11 +524,9 @@
           <li>Providing accurate shipping information; JPG is not liable for non-delivery caused by customer error</li>
         </ul>
         <p>Risk of loss passes to the customer upon handover to the carrier. We strongly recommend purchasing shipping insurance for high-value orders.</p>
-
         <h2>7. Intellectual Property</h2>
         <p>All content on our Services — including but not limited to text, photography, video, brand marks, product descriptions, curation methodology, and software — is owned by or licensed to JPG and protected under Japanese copyright law (著作権法), applicable international treaties, and other intellectual property laws.</p>
         <p>You may not reproduce, distribute, adapt, or commercially exploit any content without our prior written consent. Limited personal, non-commercial use is permitted provided attribution is maintained.</p>
-
         <h2>8. Prohibited Conduct</h2>
         <p>You agree not to use the Services to:</p>
         <ul>
@@ -445,45 +537,110 @@
           <li>Attempt to gain unauthorised access to our systems or those of third parties</li>
           <li>Engage in resale or commercial redistribution of our products without explicit written agreement</li>
         </ul>
-
         <h2>9. Limitation of Liability</h2>
         <p>To the maximum extent permitted by applicable law, JPG's total liability arising out of or related to these Terms or the Services shall not exceed the greater of (a) the amount you paid to JPG in the six months preceding the claim, or (b) JPY 10,000.</p>
         <p>JPG is not liable for indirect, incidental, special, or consequential damages including loss of profit, data, or goodwill, even if advised of the possibility of such damages.</p>
-
         <h2>10. Governing Law &amp; Dispute Resolution</h2>
         <p>These Terms are governed by the laws of Japan. Any dispute arising out of or relating to these Terms shall first be subject to good-faith negotiation. If unresolved within 30 days, disputes shall be submitted to binding arbitration under the rules of the Japan Commercial Arbitration Association (JCAA), conducted in Tokyo in the Japanese or English language at JPG's election.</p>
         <p>For international customers, nothing in these Terms limits rights you may have under the mandatory consumer protection laws of your country of residence.</p>
-
         <div class="contact-block">
-          <p class="contact-head">Questions about these Terms</p>
+          <span class="contact-head">Questions about these Terms</span>
           <p>Japan Provenance Guild</p>
           <p>Email: <a href="mailto:legal@japanprovenance.guild">legal@japanprovenance.guild</a></p>
           <p>Language: English / 日本語</p>
         </div>
       </div>
+
+      <!-- JAPANESE -->
+      <div class="prose" data-lang="jp">
+        <div class="notice-box"><p>ジャパン・プロヴェナンス・ギルドのウェブサイトへのアクセスまたはご購入をもって、お客様は本利用規約の全条項に同意したものとみなされます。ご利用前に必ずお読みください。</p></div>
+        <h2>第1条　ジャパン・プロヴェナンス・ギルドについて</h2>
+        <p>ジャパン・プロヴェナンス・ギルド（以下「JPG」「当社」）は、日本原産の真正な製品に特化したキュレーテッドコマース・会員制プラットフォームです。当社は、認証済みの日本製品・工芸品・生産者を、国内外のお客様へとつなぐ役割を担っています。本社所在地は日本国東京都です。</p>
+        <p>本利用規約（以下「本規約」）は、当社が運営するウェブサイト、モバイルアプリケーション、サブスクリプションサービス、その他一切のサービス（以下「本サービス」）を利用するすべての訪問者・会員・購入者に適用されます。</p>
+        <h2>第2条　規約への同意</h2>
+        <p>本サービスを利用することにより、お客様は以下を表明・保証したものとみなされます。（a）18歳以上であること、（b）法的拘束力のある契約を締結する能力を有すること、（c）本規約を修正なく受諾すること。企業等の法人を代表して本サービスを利用する場合は、当該法人を拘束する権限を有することを保証するものとします。</p>
+        <p>当社は随時本規約を更新することができます。変更通知後も引き続き本サービスを利用した場合、改訂後の規約に同意したものとみなします。</p>
+        <h2>第3条　アカウント登録</h2>
+        <p>一部の機能の利用にはアカウント登録が必要です。お客様は正確かつ最新の情報を提供し、ログイン情報を秘密に保持することに同意するものとします。アカウントで発生したすべての活動についてお客様が責任を負います。不正アクセスの疑いがある場合は、直ちに <a href="mailto:legal@japanprovenance.guild">legal@japanprovenance.guild</a> までご連絡ください。</p>
+        <p>当社は、本規約に違反し、虚偽の情報を提供し、またはJPG・提携先・他のユーザーに有害な行為を行ったアカウントを、当社の裁量により停止または削除する権利を有します。</p>
+        <h2>第4条　商品・産地証明基準</h2>
+        <p>JPGは、掲載するすべての商品に対し、多段階の産地認証プロセスを適用しています。当社の基準は以下を要件とします。</p>
+        <ul>
+          <li>日本の生産者、職人、または認定地域団体からの産地証明書類の取得</li>
+          <li>日本の品質・表示規制（JIS規格、地理的表示制度またはそれに相当する規格）への準拠</li>
+          <li>当社の裁量による継続的なサプライヤー監査権の行使</li>
+        </ul>
+        <p>当社は産地情報の検証に最善を尽くしますが、真正性と無関係な欠陥がないことを保証するものではありません。商品説明、画像、認証情報は、認証済みサプライヤーからの情報に基づいて誠実に提供されます。</p>
+        <h2>第5条　注文・価格</h2>
+        <p>価格は原則として日本円（JPY）で表示され、選択された通貨での換算額を別途表示する場合があります。価格は予告なく変更される場合があります。当社からの注文確認メールを受信した時点で、注文が確定となります。</p>
+        <p>当社は、価格エラー、在庫不足、または不正取引の疑いがある場合を含め、当社の裁量により注文を拒否またはキャンセルする権利を有します。既に決済が完了している場合は、速やかに全額返金いたします。</p>
+        <h2>第6条　国際配送・税関</h2>
+        <p>JPGは日本全国および世界各国へ発送しています。配送日数は目安であり、通関手続き、配送業者の遅延、その他当社の管理外の要因により変動する場合があります。お客様は以下について責任を負います。</p>
+        <ul>
+          <li>お届け先国における輸入関税・税金・通関手数料</li>
+          <li>現地の輸入規制・禁止事項への準拠</li>
+          <li>正確な配送情報の提供（お客様の誤記による不達についてJPGは責任を負いません）</li>
+        </ul>
+        <p>商品の滅失リスクは、配送業者への引渡し時点でお客様に移転します。高額商品については、配送保険のご加入を強くお勧めします。</p>
+        <h2>第7条　知的財産権</h2>
+        <p>本サービス上のすべてのコンテンツ（テキスト、写真、動画、ブランドマーク、商品説明、キュレーション手法、ソフトウェア等を含むがこれに限らない）は、JPGが所有または使用許諾を受けており、日本の著作権法（著作権法）、適用される国際条約、その他の知的財産法によって保護されています。</p>
+        <p>当社の事前書面による同意なく、いかなるコンテンツも複製・配布・改変・商業利用することはできません。帰属表示を維持した限定的な個人・非商業的利用は許可されます。</p>
+        <h2>第8条　禁止行為</h2>
+        <p>お客様は本サービスを以下の目的で使用しないことに同意するものとします。</p>
+        <ul>
+          <li>日本または国際的な法令・規制への違反</li>
+          <li>スパム・迷惑通信・悪意あるコードの送信</li>
+          <li>書面による許可なしのデータスクレイピング・収集・系統的な抽出</li>
+          <li>JPG・サプライヤー・他のユーザーへのなりすまし</li>
+          <li>当社または第三者のシステムへの不正アクセス試行</li>
+          <li>明示的な書面による合意なしの商品の転売・商業的再配布</li>
+        </ul>
+        <h2>第9条　責任の制限</h2>
+        <p>適用法が許容する最大限の範囲において、本規約または本サービスに起因するJPGの総責任額は、（a）請求発生前6ヶ月間にお客様がJPGに支払った金額、または（b）10,000円のいずれか大きい方を超えないものとします。</p>
+        <p>JPGは、当該損害の可能性を告知されていた場合であっても、逸失利益・データ損失・のれんの損失を含む間接的・付随的・特別・結果的損害に対して責任を負いません。</p>
+        <h2>第10条　準拠法・紛争解決</h2>
+        <p>本規約は日本法に準拠します。本規約に起因または関連する紛争は、まず誠実な交渉により解決を図るものとします。30日以内に解決しない場合、紛争は日本商事仲裁協会（JCAA）の規則に基づく拘束力のある仲裁に付され、JPGの選択により日本語または英語で東京において実施されます。</p>
+        <p>海外のお客様については、本規約のいかなる内容も、お客様の居住国の強制適用される消費者保護法に基づく権利を制限または排除するものではありません。</p>
+        <div class="contact-block">
+          <span class="contact-head">本規約に関するお問い合わせ</span>
+          <p>ジャパン・プロヴェナンス・ギルド株式会社</p>
+          <p>メール：<a href="mailto:legal@japanprovenance.guild">legal@japanprovenance.guild</a></p>
+          <p>対応言語：日本語・English</p>
+        </div>
+      </div>
     </article>
   </div>
 
-  <!-- ════════════════════════════════════════
+  <!-- ══════════════════════════════════════
        LEGAL NOTICE
-  ════════════════════════════════════════ -->
+  ══════════════════════════════════════ -->
   <div class="panel" id="legal">
     <article class="legal-article">
       <div class="legal-meta">
-        <div class="meta-item"><span class="meta-label">Document</span><span class="meta-value">Legal Notice</span></div>
-        <div class="meta-item"><span class="meta-label">Effective</span><span class="meta-value">May 1, 2025</span></div>
-        <div class="meta-item"><span class="meta-label">Last Revised</span><span class="meta-value">May 18, 2026</span></div>
-        <div class="meta-item"><span class="meta-label">Jurisdiction</span><span class="meta-value">Japan</span></div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Document</span><span data-lang-inline="jp">文書</span></span>
+          <span class="meta-value"><span data-lang-inline="en">Legal Notice</span><span data-lang-inline="jp">特定商取引法に基づく表記</span></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Effective</span><span data-lang-inline="jp">施行日</span></span>
+          <span class="meta-value">2025年5月1日</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Last Revised</span><span data-lang-inline="jp">最終改訂</span></span>
+          <span class="meta-value">2026年5月18日</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Jurisdiction</span><span data-lang-inline="jp">準拠法</span></span>
+          <span class="meta-value"><span data-lang-inline="en">Japan</span><span data-lang-inline="jp">日本</span></span>
+        </div>
       </div>
-      <div class="prose">
 
+      <!-- ENGLISH -->
+      <div class="prose" data-lang="en">
         <h2>Company Information</h2>
         <p>In accordance with Japanese statutory disclosure requirements and applicable international information obligations, the following identifies the operator of this website and associated Services.</p>
-
         <table>
-          <thead>
-            <tr><th>Detail</th><th>Information</th></tr>
-          </thead>
+          <thead><tr><th>Detail</th><th>Information</th></tr></thead>
           <tbody>
             <tr><td>Trade Name</td><td>Japan Provenance Guild (JPG)</td></tr>
             <tr><td>Legal Form</td><td>Kabushiki Kaisha (株式会社) — Japanese Stock Corporation</td></tr>
@@ -492,82 +649,122 @@
             <tr><td>Representative Director</td><td>Available upon written request</td></tr>
             <tr><td>Founded</td><td>2024</td></tr>
             <tr><td>Primary Activity</td><td>Curated e-commerce, provenance verification, and membership services for Japanese goods</td></tr>
-            <tr><td>Capital</td><td>Disclosed in accordance with Japanese Companies Act upon request</td></tr>
           </tbody>
         </table>
-
         <h2>Contact Information</h2>
         <table>
-          <thead>
-            <tr><th>Channel</th><th>Details</th></tr>
-          </thead>
+          <thead><tr><th>Channel</th><th>Details</th></tr></thead>
           <tbody>
             <tr><td>General Enquiries</td><td><a href="mailto:hello@japanprovenance.guild">hello@japanprovenance.guild</a></td></tr>
             <tr><td>Legal &amp; Compliance</td><td><a href="mailto:legal@japanprovenance.guild">legal@japanprovenance.guild</a></td></tr>
             <tr><td>Privacy Officer</td><td><a href="mailto:privacy@japanprovenance.guild">privacy@japanprovenance.guild</a></td></tr>
             <tr><td>Press Enquiries</td><td><a href="mailto:press@japanprovenance.guild">press@japanprovenance.guild</a></td></tr>
-            <tr><td>Languages Supported</td><td>English, Japanese (日本語)</td></tr>
+            <tr><td>Languages Supported</td><td>English, 日本語</td></tr>
           </tbody>
         </table>
-
-        <h2>Website Operation</h2>
-        <p>This website is hosted on infrastructure meeting ISO 27001 standards. JPG operates its digital commerce platform in compliance with the Act on Specified Commercial Transactions (特定商取引法 — Tokutei Shōtorihiki-hō) and all applicable e-commerce regulations in Japan.</p>
-
-        <h3>Specified Commercial Transactions Act Disclosure</h3>
-        <p>In accordance with Article 11 of Japan's Act on Specified Commercial Transactions, the following information is disclosed for all mail-order sales:</p>
+        <h2>Specified Commercial Transactions Act Disclosure</h2>
+        <p>In accordance with Article 11 of Japan's Act on Specified Commercial Transactions (特定商取引法), the following is disclosed for all mail-order sales:</p>
         <ul>
           <li><strong>Seller:</strong> Japan Provenance Guild KK</li>
           <li><strong>Payment:</strong> Credit card, bank transfer, or supported digital payment methods</li>
           <li><strong>Delivery:</strong> Typically 7–21 business days internationally; 2–5 business days domestically</li>
-          <li><strong>Returns:</strong> See our Refund Policy — summary: unused items accepted within 14 days of receipt</li>
+          <li><strong>Returns:</strong> Unused items accepted within 14 days of receipt — see Refund Policy</li>
           <li><strong>Price:</strong> As displayed at checkout, inclusive of consumption tax (消費税) where applicable</li>
           <li><strong>Additional Charges:</strong> International shipping fees and customs duties as applicable</li>
         </ul>
-
         <h2>Intellectual Property Notice</h2>
-        <p>The brand name "Japan Provenance Guild," the acronym "JPG," our logo, guild mark, and all associated visual identity elements are proprietary to JPG. Unauthorised use, reproduction, or imitation is prohibited under Japanese Trademark Law (商標法) and applicable international treaties.</p>
-        <p>Third-party trademarks, brand names, and product names appearing on this site remain the property of their respective owners and are used solely for identification purposes.</p>
-
+        <p>The brand name "Japan Provenance Guild," the acronym "JPG," our logo, guild mark, and all associated visual identity elements are proprietary to JPG and protected under Japanese Trademark Law (商標法) and applicable international treaties.</p>
         <h2>Applicable Law</h2>
-        <p>This Legal Notice and all matters arising from the operation of this website are subject to Japanese law. Where EU, UK, Australian, or other jurisdiction-specific regulations apply to users in those regions, JPG endeavours to comply with applicable local consumer protection requirements.</p>
-
-        <h2>Disclaimer</h2>
-        <p>The information on this website is provided in good faith. JPG makes no warranty, expressed or implied, as to the completeness, accuracy, or timeliness of any content. We are not responsible for third-party websites linked from our platform.</p>
-
+        <p>This Legal Notice and all matters arising from the operation of this website are subject to Japanese law. Where EU, UK, Australian, or other jurisdiction-specific regulations apply, JPG endeavours to comply with applicable local consumer protection requirements.</p>
         <div class="contact-block">
-          <p class="contact-head">Formal Correspondence</p>
-          <p>For formal legal notices, please direct written correspondence to:</p>
-          <p style="margin-top:0.5rem;">Japan Provenance Guild KK — Legal Department</p>
+          <span class="contact-head">Formal Correspondence</span>
+          <p>Japan Provenance Guild KK — Legal Department</p>
           <p>Tokyo, Japan</p>
+          <p><a href="mailto:legal@japanprovenance.guild">legal@japanprovenance.guild</a></p>
+        </div>
+      </div>
+
+      <!-- JAPANESE -->
+      <div class="prose" data-lang="jp">
+        <h2>事業者情報</h2>
+        <p>日本の法令上の情報開示義務および適用される国際的な情報提供義務に従い、本ウェブサイトおよび関連サービスの運営者を以下のとおり表示します。</p>
+        <table>
+          <thead><tr><th>項目</th><th>内容</th></tr></thead>
+          <tbody>
+            <tr><td>販売業者名</td><td>ジャパン・プロヴェナンス・ギルド株式会社（JPG）</td></tr>
+            <tr><td>法人形態</td><td>株式会社（日本法に基づく）</td></tr>
+            <tr><td>登記</td><td>東京法務局</td></tr>
+            <tr><td>所在地</td><td>東京都（詳細住所は書面によるご請求に応じて開示）</td></tr>
+            <tr><td>代表者</td><td>書面によるご請求に応じて開示</td></tr>
+            <tr><td>設立年</td><td>2024年</td></tr>
+            <tr><td>事業内容</td><td>日本製品のキュレーテッドEC・産地認証・会員制サービス</td></tr>
+          </tbody>
+        </table>
+        <h2>お問い合わせ先</h2>
+        <table>
+          <thead><tr><th>窓口</th><th>連絡先</th></tr></thead>
+          <tbody>
+            <tr><td>一般お問い合わせ</td><td><a href="mailto:hello@japanprovenance.guild">hello@japanprovenance.guild</a></td></tr>
+            <tr><td>法務・コンプライアンス</td><td><a href="mailto:legal@japanprovenance.guild">legal@japanprovenance.guild</a></td></tr>
+            <tr><td>個人情報保護担当</td><td><a href="mailto:privacy@japanprovenance.guild">privacy@japanprovenance.guild</a></td></tr>
+            <tr><td>報道関係</td><td><a href="mailto:press@japanprovenance.guild">press@japanprovenance.guild</a></td></tr>
+            <tr><td>対応言語</td><td>日本語・English</td></tr>
+          </tbody>
+        </table>
+        <h2>特定商取引法に基づく表記</h2>
+        <p>特定商取引法第11条に基づき、通信販売に係る以下の事項を表示します。</p>
+        <ul>
+          <li><strong>販売業者：</strong>ジャパン・プロヴェナンス・ギルド株式会社</li>
+          <li><strong>お支払い方法：</strong>クレジットカード、銀行振込、その他対応する電子決済手段</li>
+          <li><strong>お届け期間：</strong>国内：2〜5営業日、海外：7〜21営業日（目安）</li>
+          <li><strong>返品・交換：</strong>未使用品に限り受領後14日以内に受付（詳細は返品・返金ポリシーをご参照ください）</li>
+          <li><strong>販売価格：</strong>決済画面に表示される価格（消費税込み）</li>
+          <li><strong>追加費用：</strong>国際送料および関税（該当する場合）はお客様のご負担となります</li>
+        </ul>
+        <h2>知的財産権に関する表示</h2>
+        <p>「Japan Provenance Guild」「ジャパン・プロヴェナンス・ギルド」「JPG」の名称、ロゴ、ギルドマーク、その他すべてのビジュアルアイデンティティ要素は、JPGの専有財産であり、日本の商標法および適用される国際条約によって保護されています。</p>
+        <h2>準拠法</h2>
+        <p>本表記および本ウェブサイトの運営に関するすべての事項は日本法に準拠します。EU、英国、オーストラリアその他の地域固有の法令が適用されるお客様については、当社は適用される現地の消費者保護要件への準拠に努めます。</p>
+        <div class="contact-block">
+          <span class="contact-head">正式なご連絡先</span>
+          <p>ジャパン・プロヴェナンス・ギルド株式会社　法務部門</p>
+          <p>東京都</p>
           <p><a href="mailto:legal@japanprovenance.guild">legal@japanprovenance.guild</a></p>
         </div>
       </div>
     </article>
   </div>
 
-  <!-- ════════════════════════════════════════
+  <!-- ══════════════════════════════════════
        PRIVACY POLICY
-  ════════════════════════════════════════ -->
+  ══════════════════════════════════════ -->
   <div class="panel" id="privacy">
     <article class="legal-article">
       <div class="legal-meta">
-        <div class="meta-item"><span class="meta-label">Document</span><span class="meta-value">Privacy Policy</span></div>
-        <div class="meta-item"><span class="meta-label">Effective</span><span class="meta-value">May 1, 2025</span></div>
-        <div class="meta-item"><span class="meta-label">Last Revised</span><span class="meta-value">May 18, 2026</span></div>
-        <div class="meta-item"><span class="meta-label">Framework</span><span class="meta-value">APPI / GDPR-aligned</span></div>
-      </div>
-      <div class="prose">
-
-        <div class="notice-box">
-          <p>JPG is committed to protecting your personal information in accordance with Japan's Act on the Protection of Personal Information (個人情報保護法 — APPI) and, where applicable, the EU General Data Protection Regulation (GDPR) and other international frameworks.</p>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Document</span><span data-lang-inline="jp">文書</span></span>
+          <span class="meta-value"><span data-lang-inline="en">Privacy Policy</span><span data-lang-inline="jp">プライバシーポリシー</span></span>
         </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Effective</span><span data-lang-inline="jp">施行日</span></span>
+          <span class="meta-value">2025年5月1日</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Last Revised</span><span data-lang-inline="jp">最終改訂</span></span>
+          <span class="meta-value">2026年5月18日</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Framework</span><span data-lang-inline="jp">準拠規範</span></span>
+          <span class="meta-value">個人情報保護法 / GDPR</span>
+        </div>
+      </div>
 
+      <!-- ENGLISH -->
+      <div class="prose" data-lang="en">
+        <div class="notice-box"><p>JPG is committed to protecting your personal information in accordance with Japan's Act on the Protection of Personal Information (個人情報保護法 — APPI) and, where applicable, the EU General Data Protection Regulation (GDPR) and other international frameworks.</p></div>
         <h2>1. Data Controller</h2>
         <p>Japan Provenance Guild KK is the data controller responsible for your personal information. Our Privacy Officer can be contacted at <a href="mailto:privacy@japanprovenance.guild">privacy@japanprovenance.guild</a>.</p>
-
         <h2>2. Information We Collect</h2>
-        <p>We collect information in the following categories:</p>
-
         <h3>Information You Provide</h3>
         <ul>
           <li><strong>Account data:</strong> Name, email address, password (encrypted)</li>
@@ -575,181 +772,242 @@
           <li><strong>Communications:</strong> Messages you send to us, survey responses, reviews</li>
           <li><strong>Membership data:</strong> Preferences, tier status, redemption history</li>
         </ul>
-
         <h3>Information Collected Automatically</h3>
         <ul>
           <li><strong>Usage data:</strong> Pages visited, time on site, clickstream data, search queries</li>
           <li><strong>Device data:</strong> IP address, browser type, operating system, device identifiers</li>
-          <li><strong>Cookie data:</strong> See our Cookie section below</li>
+          <li><strong>Cookie data:</strong> See Cookie section below</li>
           <li><strong>Location data:</strong> Country/region inferred from IP address for localisation purposes</li>
         </ul>
-
-        <h3>Information from Third Parties</h3>
-        <ul>
-          <li>Social login providers (if you choose to use them)</li>
-          <li>Payment processors (transaction status only)</li>
-          <li>Shipping carriers (delivery confirmation data)</li>
-        </ul>
-
         <h2>3. How We Use Your Information</h2>
         <table>
-          <thead>
-            <tr><th>Purpose</th><th>Legal Basis (APPI / GDPR)</th></tr>
-          </thead>
+          <thead><tr><th>Purpose</th><th>Legal Basis (APPI / GDPR)</th></tr></thead>
           <tbody>
             <tr><td>Processing and fulfilling orders</td><td>Contract performance</td></tr>
             <tr><td>Customer support and communications</td><td>Contract / Legitimate interests</td></tr>
             <tr><td>Fraud prevention and security</td><td>Legitimate interests / Legal obligation</td></tr>
-            <tr><td>Marketing and personalisation (where opted in)</td><td>Consent</td></tr>
+            <tr><td>Marketing and personalisation (opted in)</td><td>Consent</td></tr>
             <tr><td>Analytics to improve our Services</td><td>Legitimate interests</td></tr>
-            <tr><td>Compliance with Japanese and international law</td><td>Legal obligation</td></tr>
+            <tr><td>Compliance with applicable law</td><td>Legal obligation</td></tr>
           </tbody>
         </table>
-
         <h2>4. International Data Transfers</h2>
-        <p>As an internationally operating platform, your data may be processed in Japan and transferred to servers or service providers in other countries. Where personal data is transferred outside Japan or the EEA, JPG implements appropriate safeguards including:</p>
-        <ul>
-          <li>Standard Contractual Clauses (SCCs) as approved by the European Commission</li>
-          <li>Adequacy decisions where applicable (Japan has received GDPR adequacy status from the EU)</li>
-          <li>Data Processing Agreements with all third-party processors</li>
-        </ul>
-
+        <p>Your data may be processed in Japan and transferred to servers or service providers in other countries. Where personal data is transferred outside Japan or the EEA, JPG implements appropriate safeguards including Standard Contractual Clauses (SCCs), adequacy decisions where applicable, and Data Processing Agreements with all third-party processors. Japan holds EU GDPR adequacy status.</p>
         <h2>5. Data Retention</h2>
-        <p>We retain personal data only for as long as necessary for the purposes outlined above, or as required by law. General retention periods:</p>
         <ul>
           <li>Account data: Duration of account plus 3 years post-closure</li>
           <li>Transaction records: 7 years (Japanese accounting law requirement)</li>
           <li>Marketing data: Until you withdraw consent</li>
           <li>Support communications: 3 years from last contact</li>
         </ul>
-
         <h2>6. Cookies</h2>
-        <p>We use the following categories of cookies:</p>
         <ul>
           <li><strong>Essential:</strong> Required for the website to function. Cannot be disabled.</li>
-          <li><strong>Analytics:</strong> Help us understand how visitors use our site (e.g. visit duration, pages viewed). These are anonymised or pseudonymised.</li>
-          <li><strong>Marketing:</strong> Used to deliver relevant advertisements. Only activated with your consent.</li>
-          <li><strong>Preferences:</strong> Remember your language, currency, and display settings.</li>
+          <li><strong>Analytics:</strong> Anonymised/pseudonymised visitor behaviour data.</li>
+          <li><strong>Marketing:</strong> Activated only with your explicit consent.</li>
+          <li><strong>Preferences:</strong> Language, currency, and display settings.</li>
         </ul>
-        <p>You can manage cookie preferences at any time via our Cookie Settings link in the footer, or through your browser settings.</p>
-
         <h2>7. Your Rights</h2>
-        <p>Under APPI and where applicable GDPR, you have the right to:</p>
-        <ul>
-          <li>Access the personal data we hold about you</li>
-          <li>Request correction of inaccurate data</li>
-          <li>Request deletion of your data ("right to be forgotten"), subject to legal retention obligations</li>
-          <li>Object to or restrict certain processing</li>
-          <li>Data portability — receive your data in a machine-readable format</li>
-          <li>Withdraw consent at any time (without affecting prior lawful processing)</li>
-          <li>Lodge a complaint with the Personal Information Protection Commission (PPC) in Japan, or your local supervisory authority</li>
-        </ul>
-        <p>To exercise any of these rights, contact us at <a href="mailto:privacy@japanprovenance.guild">privacy@japanprovenance.guild</a>. We will respond within 30 days (APPI standard) or 30 days (GDPR standard).</p>
-
+        <p>Under APPI and applicable GDPR provisions, you have the right to: access your data, request correction or deletion, object to or restrict processing, request data portability, withdraw consent at any time, and lodge a complaint with the Personal Information Protection Commission (PPC) in Japan or your local supervisory authority.</p>
+        <p>Contact us at <a href="mailto:privacy@japanprovenance.guild">privacy@japanprovenance.guild</a>. We will respond within 30 days.</p>
         <h2>8. Security</h2>
-        <p>JPG implements appropriate technical and organisational measures to protect your personal information, including encryption in transit (TLS 1.2+), encrypted storage, access controls, and regular security assessments. In the event of a data breach affecting your rights, we will notify you and relevant authorities in accordance with applicable law.</p>
-
+        <p>JPG implements technical and organisational measures including encryption in transit (TLS 1.2+), encrypted storage, access controls, and regular security assessments. In the event of a data breach affecting your rights, we will notify you and relevant authorities in accordance with applicable law.</p>
         <h2>9. Children's Privacy</h2>
-        <p>Our Services are not directed to children under 16. We do not knowingly collect personal information from minors. If you believe a child has provided us with personal data, please contact our Privacy Officer immediately.</p>
-
+        <p>Our Services are not directed to children under 16. We do not knowingly collect personal information from minors. Contact our Privacy Officer immediately if you believe a child has provided us with personal data.</p>
         <div class="contact-block">
-          <p class="contact-head">Privacy Officer</p>
+          <span class="contact-head">Privacy Officer</span>
           <p>Japan Provenance Guild KK</p>
           <p>Email: <a href="mailto:privacy@japanprovenance.guild">privacy@japanprovenance.guild</a></p>
-          <p>Response time: Within 30 days</p>
-          <p>Language: English / 日本語</p>
+          <p>Response time: Within 30 days &nbsp;|&nbsp; English / 日本語</p>
+        </div>
+      </div>
+
+      <!-- JAPANESE -->
+      <div class="prose" data-lang="jp">
+        <div class="notice-box"><p>ジャパン・プロヴェナンス・ギルドは、個人情報の保護に関する法律（個人情報保護法）、および適用される場合にはEU一般データ保護規則（GDPR）その他の国際的な規範に従い、お客様の個人情報の保護に取り組んでいます。</p></div>
+        <h2>第1条　個人情報管理者</h2>
+        <p>ジャパン・プロヴェナンス・ギルド株式会社が、お客様の個人情報に関する管理者です。個人情報保護担当者へのお問い合わせは <a href="mailto:privacy@japanprovenance.guild">privacy@japanprovenance.guild</a> までご連絡ください。</p>
+        <h2>第2条　収集する情報</h2>
+        <h3>お客様からご提供いただく情報</h3>
+        <ul>
+          <li><strong>アカウント情報：</strong>氏名、メールアドレス、パスワード（暗号化）</li>
+          <li><strong>購入情報：</strong>請求先・配送先住所、お支払い方法（決済処理は当社の決済代行会社が行い、カード情報の完全な情報を当社は保存しません）</li>
+          <li><strong>お問い合わせ内容：</strong>当社へのメッセージ、アンケート回答、レビュー</li>
+          <li><strong>会員情報：</strong>ご希望・会員ランク・特典利用履歴</li>
+        </ul>
+        <h3>自動的に収集する情報</h3>
+        <ul>
+          <li><strong>利用状況データ：</strong>閲覧ページ、滞在時間、クリック履歴、検索クエリ</li>
+          <li><strong>端末データ：</strong>IPアドレス、ブラウザの種類、OS、デバイス識別子</li>
+          <li><strong>Cookieデータ：</strong>下記Cookie項目をご参照ください</li>
+          <li><strong>位置情報：</strong>IPアドレスから推定される国・地域（ローカライズ目的）</li>
+        </ul>
+        <h2>第3条　個人情報の利用目的</h2>
+        <table>
+          <thead><tr><th>目的</th><th>法的根拠（個人情報保護法/GDPR）</th></tr></thead>
+          <tbody>
+            <tr><td>注文の処理・履行</td><td>契約の履行</td></tr>
+            <tr><td>カスタマーサポート・連絡</td><td>契約の履行・正当な利益</td></tr>
+            <tr><td>不正防止・セキュリティ</td><td>正当な利益・法的義務</td></tr>
+            <tr><td>マーケティング・パーソナライズ（同意した場合）</td><td>同意</td></tr>
+            <tr><td>サービス改善のための分析</td><td>正当な利益</td></tr>
+            <tr><td>法令遵守</td><td>法的義務</td></tr>
+          </tbody>
+        </table>
+        <h2>第4条　国際的なデータ移転</h2>
+        <p>お客様のデータは日本国内で処理されるほか、他国のサーバーやサービス提供者に転送される場合があります。日本またはEEA域外へ個人データを移転する場合、当社は標準契約条項（SCC）、適用される十分性認定（日本はEU GDPRの十分性認定を取得済み）、および全てのサードパーティ処理業者とのデータ処理契約（DPA）を含む適切な保護措置を講じます。</p>
+        <h2>第5条　データの保存期間</h2>
+        <ul>
+          <li>アカウント情報：アカウント有効期間中および解約後3年間</li>
+          <li>取引記録：7年間（日本の会計法令上の要件）</li>
+          <li>マーケティングデータ：同意を撤回するまで</li>
+          <li>サポート対応記録：最後の連絡から3年間</li>
+        </ul>
+        <h2>第6条　Cookie</h2>
+        <ul>
+          <li><strong>必須Cookie：</strong>ウェブサイトの機能に必要なもの。無効化不可。</li>
+          <li><strong>分析Cookie：</strong>匿名化・仮名化された訪問者行動データ。</li>
+          <li><strong>マーケティングCookie：</strong>お客様の明示的な同意がある場合のみ有効化。</li>
+          <li><strong>設定Cookie：</strong>言語・通貨・表示設定の記憶。</li>
+        </ul>
+        <h2>第7条　お客様の権利</h2>
+        <p>個人情報保護法および適用されるGDPRの規定に基づき、お客様は以下の権利を有します。個人情報へのアクセス、訂正・削除の請求、処理への異議申立または制限の請求、データポータビリティの請求、同意の随時撤回、並びに個人情報保護委員会（PPC）またはお客様の所在地の監督機関への苦情申立。</p>
+        <p>お問い合わせは <a href="mailto:privacy@japanprovenance.guild">privacy@japanprovenance.guild</a> まで。30日以内にご回答いたします。</p>
+        <h2>第8条　セキュリティ</h2>
+        <p>当社は、通信の暗号化（TLS 1.2以上）、保存データの暗号化、アクセス制御、定期的なセキュリティ評価を含む技術的・組織的措置を講じています。お客様の権利に影響を及ぼすデータ侵害が発生した場合、適用法に従いお客様および関係機関に通知いたします。</p>
+        <h2>第9条　子どものプライバシー</h2>
+        <p>本サービスは16歳未満の方を対象としていません。未成年者の個人情報を故意に収集することはありません。未成年者が個人情報を提供したと思われる場合は、直ちに個人情報保護担当者までご連絡ください。</p>
+        <div class="contact-block">
+          <span class="contact-head">個人情報保護担当者</span>
+          <p>ジャパン・プロヴェナンス・ギルド株式会社</p>
+          <p>メール：<a href="mailto:privacy@japanprovenance.guild">privacy@japanprovenance.guild</a></p>
+          <p>回答期間：30日以内　|　対応言語：日本語・English</p>
         </div>
       </div>
     </article>
   </div>
 
-  <!-- ════════════════════════════════════════
+  <!-- ══════════════════════════════════════
        REFUND POLICY
-  ════════════════════════════════════════ -->
+  ══════════════════════════════════════ -->
   <div class="panel" id="refund">
     <article class="legal-article">
       <div class="legal-meta">
-        <div class="meta-item"><span class="meta-label">Document</span><span class="meta-value">Refund &amp; Returns Policy</span></div>
-        <div class="meta-item"><span class="meta-label">Effective</span><span class="meta-value">May 1, 2025</span></div>
-        <div class="meta-item"><span class="meta-label">Last Revised</span><span class="meta-value">May 18, 2026</span></div>
-        <div class="meta-item"><span class="meta-label">Window</span><span class="meta-value">14 Days from Receipt</span></div>
-      </div>
-      <div class="prose">
-
-        <div class="notice-box">
-          <p>JPG stands behind the provenance and quality of every item we carry. If you are not fully satisfied, we make the return process straightforward and fair.</p>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Document</span><span data-lang-inline="jp">文書</span></span>
+          <span class="meta-value"><span data-lang-inline="en">Refund &amp; Returns Policy</span><span data-lang-inline="jp">返品・返金ポリシー</span></span>
         </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Effective</span><span data-lang-inline="jp">施行日</span></span>
+          <span class="meta-value">2025年5月1日</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Last Revised</span><span data-lang-inline="jp">最終改訂</span></span>
+          <span class="meta-value">2026年5月18日</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label"><span data-lang-inline="en">Window</span><span data-lang-inline="jp">返品受付期間</span></span>
+          <span class="meta-value"><span data-lang-inline="en">14 Days from Receipt</span><span data-lang-inline="jp">受領後14日以内</span></span>
+        </div>
+      </div>
 
+      <!-- ENGLISH -->
+      <div class="prose" data-lang="en">
+        <div class="notice-box"><p>JPG stands behind the provenance and quality of every item we carry. If you are not fully satisfied, we make the return process straightforward and fair.</p></div>
         <h2>Return Eligibility</h2>
-        <p>You may request a return within <strong>14 calendar days</strong> of the date you receive your order. To be eligible for a return, items must be:</p>
-        <ul>
-          <li>In their original, unused, and unaltered condition</li>
-          <li>In all original packaging, with tags attached where applicable</li>
-          <li>Accompanied by your order number or proof of purchase</li>
-          <li>Free from damage caused by the customer</li>
-        </ul>
-
+        <p>You may request a return within <strong>14 calendar days</strong> of the date you receive your order. Items must be in their original, unused, and unaltered condition, in all original packaging with tags attached, and accompanied by your order number or proof of purchase.</p>
         <h3>Non-Returnable Items</h3>
-        <p>The following items are not eligible for return due to their nature:</p>
         <ul>
           <li>Perishable goods (food, beverages, fresh produce)</li>
           <li>Personalised or custom-made items</li>
           <li>Digital downloads and online memberships once activated</li>
           <li>Items marked "Final Sale" at time of purchase</li>
-          <li>Intimate or hygienic goods once opened (where applicable)</li>
+          <li>Intimate or hygienic goods once opened</li>
           <li>Hazardous materials or items restricted from return by Japanese law</li>
         </ul>
-
         <h2>How to Request a Return</h2>
-        <p>To initiate a return, contact our customer team within your 14-day window:</p>
         <ol>
-          <li>Email <a href="mailto:returns@japanprovenance.guild">returns@japanprovenance.guild</a> with your order number and reason for return</li>
-          <li>Our team will respond within 2 business days with a Return Merchandise Authorisation (RMA) number and return instructions</li>
+          <li>Email <a href="mailto:returns@japanprovenance.guild">returns@japanprovenance.guild</a> with your order number and reason for return within your 14-day window</li>
+          <li>Our team will respond within 2 business days with a Return Merchandise Authorisation (RMA) number and instructions</li>
           <li>Pack your item securely, mark the RMA clearly on the outer packaging</li>
           <li>Ship to the address provided — we recommend a tracked service</li>
         </ol>
-        <p>Items returned without an RMA number, or returned after the 14-day window, may be refused or subject to a restocking fee at our discretion.</p>
-
         <h2>Return Shipping Costs</h2>
         <table>
-          <thead>
-            <tr><th>Scenario</th><th>Who Covers Shipping</th></tr>
-          </thead>
+          <thead><tr><th>Scenario</th><th>Who Covers Shipping</th></tr></thead>
           <tbody>
-            <tr><td>Item is defective, damaged in transit, or incorrectly sent</td><td>JPG covers return shipping in full</td></tr>
-            <tr><td>Change of mind or preference</td><td>Customer is responsible for return shipping costs</td></tr>
+            <tr><td>Defective, damaged in transit, or incorrectly sent</td><td>JPG covers return shipping in full</td></tr>
+            <tr><td>Change of mind or preference</td><td>Customer is responsible</td></tr>
             <tr><td>Provenance dispute substantiated by our team</td><td>JPG covers return shipping in full</td></tr>
           </tbody>
         </table>
-        <p>For international returns, customers are also responsible for any customs duties or taxes incurred on the return shipment unless the return is due to our error.</p>
-
         <h2>Refund Processing</h2>
-        <p>Once we receive and inspect your returned item, we will notify you by email within 3 business days. If approved:</p>
-        <ul>
-          <li>Refunds are processed to your original payment method</li>
-          <li>Credit card refunds typically appear within 5–10 business days, depending on your bank</li>
-          <li>Bank transfer refunds are processed within 3–5 business days</li>
-          <li>Original shipping charges are non-refundable unless the return is due to our error</li>
-        </ul>
-
-        <h2>Exchanges</h2>
-        <p>We do not offer direct exchanges. If you wish to receive a different item, please return your original purchase for a refund and place a new order. This allows us to ensure product availability and accurate inventory.</p>
-
+        <p>Once we receive and inspect your return, we will notify you within 3 business days. Approved refunds are processed to your original payment method. Credit card refunds typically appear within 5–10 business days. Bank transfer refunds within 3–5 business days. Original shipping charges are non-refundable unless the return is due to our error.</p>
         <h2>Damaged or Defective Items</h2>
-        <p>If your order arrives damaged or defective, please contact us within <strong>48 hours</strong> of delivery with clear photographs documenting the damage. We will arrange a full replacement or refund, including return shipping, at no cost to you. Claims submitted beyond 48 hours may still be assessed at our discretion.</p>
-
+        <p>If your order arrives damaged or defective, contact us within <strong>48 hours</strong> of delivery with photographs documenting the damage. We will arrange a full replacement or refund, including return shipping, at no cost to you.</p>
         <h2>Provenance Disputes</h2>
-        <p>JPG's provenance guarantee is central to our brand. If you have reason to believe an item does not meet the provenance standards represented at the time of purchase, please contact us with your concern. We take all such matters seriously and will conduct a full internal review. Substantiated provenance claims result in a full refund and removal of the affected product from our platform.</p>
-
-        <h2>Consumer Rights — International Customers</h2>
+        <p>If you have reason to believe an item does not meet the provenance standards represented at purchase, contact us with your concern. We take all such matters seriously, conduct a full internal review, and where substantiated, issue a full refund and remove the affected product from our platform.</p>
+        <h2>International Customers — Consumer Rights</h2>
         <p>Nothing in this policy limits or excludes statutory rights you may hold under the mandatory consumer protection laws of your country of residence. Customers in the EU, UK, Australia, and other jurisdictions with statutory cooling-off or warranty periods retain those rights in addition to JPG's voluntary policy above.</p>
-
         <div class="contact-block">
-          <p class="contact-head">Returns &amp; Refund Support</p>
+          <span class="contact-head">Returns &amp; Refund Support</span>
           <p>Email: <a href="mailto:returns@japanprovenance.guild">returns@japanprovenance.guild</a></p>
-          <p>Response time: Within 2 business days</p>
+          <p>Response: Within 2 business days</p>
           <p>Hours: Monday – Friday, 10:00 – 18:00 JST</p>
           <p>Language: English / 日本語</p>
+        </div>
+      </div>
+
+      <!-- JAPANESE -->
+      <div class="prose" data-lang="jp">
+        <div class="notice-box"><p>JPGは、お取り扱いするすべての商品の産地と品質に自信を持っています。万が一ご満足いただけない場合は、公正でわかりやすい返品手続きをご用意しています。</p></div>
+        <h2>返品受付条件</h2>
+        <p>商品をお受け取りになった日から<strong>14日以内</strong>に返品をお申し込みいただけます。以下の条件をすべて満たす必要があります。</p>
+        <ul>
+          <li>未使用・未加工の状態であること</li>
+          <li>すべての元の包装材・タグが付いた状態であること</li>
+          <li>注文番号または購入証明書をご提示いただけること</li>
+          <li>お客様の過失による損傷がないこと</li>
+        </ul>
+        <h3>返品不可商品</h3>
+        <ul>
+          <li>生鮮食品・飲料・青果物</li>
+          <li>カスタマイズ・特注品</li>
+          <li>デジタルコンテンツおよび一度有効化したオンライン会員サービス</li>
+          <li>購入時に「ファイナルセール」と表示された商品</li>
+          <li>開封済みの衛生用品・インナー類</li>
+          <li>危険物または日本法令により返品が制限されている商品</li>
+        </ul>
+        <h2>返品お申し込み手順</h2>
+        <ol>
+          <li>14日以内に <a href="mailto:returns@japanprovenance.guild">returns@japanprovenance.guild</a> へ注文番号と返品理由をご連絡ください</li>
+          <li>2営業日以内に返品承認番号（RMA）と返送先をご案内いたします</li>
+          <li>商品を安全に梱包し、外側の箱にRMA番号を明記してください</li>
+          <li>ご案内した住所へ追跡可能な配送方法でご返送ください</li>
+        </ol>
+        <h2>返送費用の負担</h2>
+        <table>
+          <thead><tr><th>理由</th><th>返送費用の負担</th></tr></thead>
+          <tbody>
+            <tr><td>不良品・配送中の破損・誤送品</td><td>JPGが全額負担</td></tr>
+            <tr><td>お客様都合（イメージ違い・気変わり等）</td><td>お客様負担</td></tr>
+            <tr><td>当社が認定した産地偽装の疑い</td><td>JPGが全額負担</td></tr>
+          </tbody>
+        </table>
+        <h2>返金処理</h2>
+        <p>返品商品の受領・検品後、3営業日以内にメールにてご連絡いたします。返金が承認された場合、ご購入時と同じお支払い方法にご返金いたします。クレジットカードへの返金は通常5〜10営業日、銀行振込への返金は3〜5営業日かかります。当社の過失による返品を除き、元の送料は返金対象外です。</p>
+        <h2>破損・不良品について</h2>
+        <p>商品が破損または不良品の状態でお届けされた場合は、お受け取りから<strong>48時間以内</strong>に破損箇所の写真とともにご連絡ください。返送料を含む交換または全額返金の対応を無償で行います。</p>
+        <h2>産地偽装に関するご申告</h2>
+        <p>購入時に表示されていた産地基準を商品が満たしていないと判断される場合は、その内容とともにご連絡ください。当社は全件を真剣に受け止め、社内調査を実施します。申告内容が事実と認められた場合、全額返金のうえ、該当商品をプラットフォームから削除いたします。</p>
+        <h2>海外のお客様の消費者としての権利</h2>
+        <p>本ポリシーのいかなる内容も、お客様の居住国の強制適用される消費者保護法に基づく権利を制限または排除するものではありません。EU、英国、オーストラリアその他の地域でクーリングオフ制度や法定保証期間が適用されるお客様は、当社の自主的なポリシーに加えてそれらの権利を引き続き有します。</p>
+        <div class="contact-block">
+          <span class="contact-head">返品・返金サポート窓口</span>
+          <p>メール：<a href="mailto:returns@japanprovenance.guild">returns@japanprovenance.guild</a></p>
+          <p>回答期間：2営業日以内</p>
+          <p>受付時間：月〜金 10:00〜18:00（JST）</p>
+          <p>対応言語：日本語・English</p>
         </div>
       </div>
     </article>
@@ -761,11 +1019,19 @@
   <span class="footer-brand">Japan Provenance Guild</span>
   <div class="footer-note">
     <div>© 2025–2026 Japan Provenance Guild KK. All rights reserved.</div>
-    <div style="margin-top:0.3rem;">Tokyo, Japan · English / 日本語</div>
+    <div style="margin-top:0.3rem;">Tokyo, Japan &nbsp;·&nbsp; English / 日本語</div>
   </div>
 </footer>
 
 <script>
+function setLang(lang) {
+  document.body.className = lang;
+  document.documentElement.lang = lang === 'jp' ? 'ja' : 'en';
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() === (lang === 'jp' ? '日本語' : 'EN'));
+  });
+}
+
 function switchTab(btn, id) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
